@@ -1,0 +1,30 @@
+{
+  "version": 2,
+  "devCommand": "uvicorn app.main:app --host 0.0.0.0 --port 8200",
+  "public": false,
+  "builds": [
+    {
+      "src": "app/main.py",
+      "use": "@vercel/python"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "./app/app.py"
+    }
+  ],
+  "env": {
+    "DB_USER": "root",
+    "DB_HOST": "localhost",
+    "DB_NAME": "task1",
+    "DB_PASSWORD": "password",
+    "DB_PORT": "3306"
+  }
+}
+
+# MYSQL_DATABASE_URL = f"mysql+pymysql://{settings.db_user}:{settings.db_password}@{settings.db_host}:{settings.db_port}/{settings.db_name}"
+#
+# engine = create_engine(
+#     MYSQL_DATABASE_URL, echo=True, pool_recycle=3600
+# )
