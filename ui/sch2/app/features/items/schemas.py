@@ -64,8 +64,8 @@ class GetItemsParams:
     def __init__(self, limit: int = 10, page: int = 1, from_date: date = None, to_date: date = None,
                  status: str = '', ma: str = '', machine: str = '', operation_order_number : int = "",
                  toArticle: str = '',
-                 sortBy: constr(regex=r'^(ma|status|date|machine)$') = 'id',
-                 sortOrder: constr(regex=r'^(asc|desc)$') = 'desc'):
+                 sortBy: str = 'id',
+                 sortOrder: str = 'desc'):
         self.limit = limit
         self.page = page
         self.from_date = from_date
