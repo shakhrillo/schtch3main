@@ -8,7 +8,7 @@ import BaseTable from '../BaseTable/BaseTable';
 import './BaseSearchPage.css';
 
 // const shiftFilter = ['F1', 'S2', 'N3']
-const statusFilter = statusData.map((item) => item.name);
+const statusFilter = statusData;
 const machineFilter = machine.map((item, i) => item.name);
 
 function BaseSearchPage({ darkMode, setTableData, setDatLength }) {
@@ -25,8 +25,10 @@ function BaseSearchPage({ darkMode, setTableData, setDatLength }) {
   const [maSelect, setMaSelect] = useState('');
   const [machineSelect, setMachineSelect] = useState('');
 
-  const handleSelectStatus = (e) =>
-    e !== 'Wählen' ? setStatusSelect(e) : setStatusSelect('');
+  const handleSelectStatus = (e) => {
+    const status = statusFilter.find((item) => item.name === e);
+    e !== 'Wählen' ? setStatusSelect(status.id) : setStatusSelect('');
+  }
 
   const handleSelectMa = (e) =>
     e !== 'Wählen' ? setMaSelect(e) : setMaSelect('');
@@ -168,7 +170,7 @@ function BaseSearchPage({ darkMode, setTableData, setDatLength }) {
                   <BaseSelect
                     select={(e) => handleSelectStatus(e)}
                     size="sm"
-                    options={statusFilter}
+                    options={statusFilter.map((item) => item.name)}
                   />
                 </div>
               </td>
