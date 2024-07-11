@@ -43,7 +43,8 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
     }
 
     const handleUpload = (e) => {
-        setFiles(e.target.files[0])
+        setFiles(Array.from(e))
+        // setFiles(e.target.files[0])
         setValueFile(e.target.value)
     }
     const handleClose = () => setShow(false);
