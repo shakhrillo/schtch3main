@@ -48,6 +48,19 @@ const BaseTable = ({
     }
   };
 
+  // const data = [
+  //   {
+  //     date: '2021-09-01T07:00:00.000Z',
+  //     status: 'info',
+  //     partnr: '123456',
+  //     partname: 'Test',
+  //     ma: 'T s',
+  //     machine: ['Test'],
+  //     notes: [{ note: 'Test' }],
+  //     image: 'test.jpg',
+  //   },
+  // ]
+
   const handleClose = (str) => {
     setShow(false);
     if (str === 'save') {
@@ -374,7 +387,7 @@ const BaseTable = ({
 			{item.partname && item.partname != 'undefined' && `${String(item.partname).slice(0, 39)}`}
                   </td>
 
-                  <td>{item.ma}</td>
+                  <td>{item.ma.toUpperCase().replace(/\s+/g, '')}</td>
                   <td>
                     {item.machine.map((mach, i) => {
                       return (
