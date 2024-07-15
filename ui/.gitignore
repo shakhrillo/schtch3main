@@ -9,6 +9,7 @@ lerna-debug.log*
 
 node_modules
 ui/sch2/node_modules
+ui/sch2/assets
 dist
 dist-ssr
 *.local
