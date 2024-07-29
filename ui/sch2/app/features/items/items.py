@@ -46,8 +46,8 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
 
     query = db.query(models.Items)
 
-    fromDate = params.from_date
-    toDate = params.to_date
+    fromDate = params.from_date or '2021-01-01'
+    toDate = params.to_date or '2099-01-01'
 
     if fromDate and toDate:
         if toDate == fromDate:
