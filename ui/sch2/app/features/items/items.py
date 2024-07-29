@@ -50,7 +50,8 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
     toDate = params.to_date
 
     if toDate == fromDate:
-        toDate = datetime.strptime(toDate, "%Y-%m-%d") + timedelta(days=1)
+        toDate = datetime.strptime(fromDate, "%Y-%m-%d") + timedelta(days=1)
+
     if toDate == "":
         # add today
         toDate = datetime.now() + timedelta(days=1)
