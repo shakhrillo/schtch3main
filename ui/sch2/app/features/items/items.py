@@ -51,14 +51,15 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
 
     if toDate == fromDate:
         toDate = datetime.strptime(fromDate, "%Y-%m-%d") + timedelta(days=1)
-
-    if toDate == "":
-        # add today
-        toDate = datetime.now() + timedelta(days=1)
         toDate = toDate.strftime("%Y-%m-%d")
     else:
-        toDate = datetime.strptime(toDate, "%Y-%m-%d") + timedelta(days=1)
-        toDate = toDate.strftime("%Y-%m-%d")
+        if toDate == "":
+            # add today
+            toDate = datetime.now() + timedelta(days=1)
+            toDate = toDate.strftime("%Y-%m-%d")
+        else:
+            toDate = datetime.strptime(toDate, "%Y-%m-%d") + timedelta(days=1)
+            toDate = toDate.strftime("%Y-%m-%d")
 
     if fromDate and toDate:
         # including toDate
