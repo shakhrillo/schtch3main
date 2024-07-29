@@ -61,15 +61,15 @@ class UpdateItemSchema(BaseModel):
 
 
 class GetItemsParams:
-    def __init__(self, limit: int = 10, page: int = 1, from_date: date = None, to_date: date = None,
+    def __init__(self, limit: int = 10, page: int = 1, fromDate: date = None, toDate: date = None,
                  status: str = '', ma: str = '', machine: str = '', operation_order_number : int = "",
                  toArticle: str = '',
                  sortBy: str = 'id',
                  sortOrder: str = 'desc'):
         self.limit = limit
         self.page = page
-        self.from_date = from_date
-        self.to_date = to_date
+        self.from_date = fromDate
+        self.to_date = toDate
         self.status = status
         self.ma = ma
         self.operation_order_number = operation_order_number
