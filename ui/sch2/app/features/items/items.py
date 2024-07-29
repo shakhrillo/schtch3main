@@ -1,5 +1,5 @@
 
-from datetime import datetime
+from datetime import datetime, timedelta
 import os
 from typing import Optional
 from fastapi import APIRouter, Depends, status, UploadFile, File
@@ -46,11 +46,28 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
 
     query = db.query(models.Items)
 
-    if params.from_date:
-        query = query.filter(models.Items.date >= params.from_date)
+    fromDate = params.from_date
+    toDate = params.to_date
 
-    if params.to_date:
-        query = query.filter(models.Items.date <= params.to_date)
+    if toDate == fromDate:
+        toDate = ""
+    if toDate == "":
+        # add today
+        toDate = datetime.now() + timedelta(days=1)
+        toDate = toDate.strftime("%Y-%m-%d")
+    else:
+        toDate = datetime.strptime(toDate, "%Y-%m-%d") + timedelta(days=1)
+        toDate = toDate.strftime("%Y-%m-%d")
+
+    if fromDate and toDate:
+        # including toDate
+        query = query.filter(models.Items.date.between(fromDate, toDate))
+
+    # if params.from_date:
+    #     query = query.filter(models.Items.date >= params.from_date)
+
+    # if params.to_date:
+    #     query = query.filter(models.Items.date <= params.to_date)
 
     if params.status:
         query = query.filter(models.Items.status == params.status)
