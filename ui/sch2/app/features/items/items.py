@@ -49,19 +49,18 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
     fromDate = params.from_date
     toDate = params.to_date
 
-    if toDate == fromDate:
-        toDate = datetime.strptime(fromDate, "%Y-%m-%d") + timedelta(days=1)
-        toDate = toDate.strftime("%Y-%m-%d")
-    else:
-        if toDate == "":
-            # add today
-            toDate = datetime.now() + timedelta(days=1)
-            toDate = toDate.strftime("%Y-%m-%d")
-        if toDate and fromDate:
-            toDate = datetime.strptime(toDate, "%Y-%m-%d") + timedelta(days=1)
-            toDate = toDate.strftime("%Y-%m-%d")
-
     if fromDate and toDate:
+        if toDate == fromDate:
+            toDate = datetime.strptime(fromDate, "%Y-%m-%d") + timedelta(days=1)
+            toDate = toDate.strftime("%Y-%m-%d")
+        else:
+            if toDate == "":
+                # add today
+                toDate = datetime.now() + timedelta(days=1)
+                toDate = toDate.strftime("%Y-%m-%d")
+            else:
+                toDate = datetime.strptime(toDate, "%Y-%m-%d") + timedelta(days=1)
+                toDate = toDate.strftime("%Y-%m-%d")
         # including toDate
         query = query.filter(models.Items.date.between(fromDate, toDate))
 
