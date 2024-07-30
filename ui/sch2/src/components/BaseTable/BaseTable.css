@@ -1,3 +1,10 @@
+::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: transparent;
+}
 .width-not {
   min-width: 300px;
 }
