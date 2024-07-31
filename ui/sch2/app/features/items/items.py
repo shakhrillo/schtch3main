@@ -125,6 +125,7 @@ async def get_items_ma(db: Session = Depends(get_db)):
     try:
         ma = db.query(models.Items.ma).all()
         ma_values = [item[0] for item in ma]  # Unpack the single element from each tuple
+        ma_values = list(set(ma_values))  # Remove duplicates
         return {'status': status.HTTP_200_OK, 'ma': ma_values}
     except Exception as e:
         return {'status': status.HTTP_500_INTERNAL_SERVER_ERROR, 'error': str(e)}
