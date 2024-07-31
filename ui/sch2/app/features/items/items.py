@@ -156,20 +156,33 @@ async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBase
     data['ma'] = data['ma'].upper()
 
     if file:
-        content = file.file.read()
+        for f in file:
+            content = f.file.read()
 
-        with open(f'{dirs}/{file.filename}', 'wb') as out_file:
-            out_file.write(content)
+            with open(f'{dirs}/{f.filename}', 'wb') as out_file:
+                out_file.write(content)
 
-        # data['image'] = f'{dirs}/{file.filename}'
-        # data['image'] = [f'{dirs}/{file.filename}']
+            if data.get('image'):
+                data['image'] = data['image'] + f',{dirs}/{f.filename}'
+            else:
+                data['image'] = f'{dirs}/{f.filename}'
 
-        if data.get('image'):
-            # add with comma
-            data['image'] = data['image'] + f',{dirs}/{file.filename}'
-            # data['image'].append(f'{dirs}/{file.filename}')
-        else:
-            data['image'] = f'{dirs}/{file.filename}'
+
+    # if file:
+    #     content = file.file.read()
+
+    #     with open(f'{dirs}/{file.filename}', 'wb') as out_file:
+    #         out_file.write(content)
+
+    #     # data['image'] = f'{dirs}/{file.filename}'
+    #     # data['image'] = [f'{dirs}/{file.filename}']
+
+    #     if data.get('image'):
+    #         # add with comma
+    #         data['image'] = data['image'] + f',{dirs}/{file.filename}'
+    #         # data['image'].append(f'{dirs}/{file.filename}')
+    #     else:
+    #         data['image'] = f'{dirs}/{file.filename}'
 
     notes = data.pop('notes')
 
