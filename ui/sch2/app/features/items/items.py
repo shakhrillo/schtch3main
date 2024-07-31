@@ -121,11 +121,18 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
 
 @item_router.get('/ma', status_code=status.HTTP_200_OK)
 async def get_items_ma(db: Session = Depends(get_db)):
+
+    try:
+        ma = db.query(models.Items.ma).all()
+        ma_values = [item[0] for item in ma]  # Unpack the single element from each tuple
+        return {'status': status.HTTP_200_OK, 'ma': ma_values}
+    except Exception as e:
+        return {'status': status.HTTP_500_INTERNAL_SERVER_ERROR, 'error': str(e)}
     # ma = db.query(models.Items.ma).all()
 
     # ma = [i['ma'] for i in ma]
 
-    return {'status': status.HTTP_200_OK, 'ma': []}
+    # return {'status': status.HTTP_200_OK, 'ma': []}
 
 
 @item_router.post('/', status_code=status.HTTP_201_CREATED)
