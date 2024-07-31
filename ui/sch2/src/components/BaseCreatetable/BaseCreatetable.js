@@ -73,7 +73,8 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
         formData.append('partnr', partNumber)
         formData.append('partname', partName)
         formData.append('status', status.id || 'info')
-        maschine.map(item => formData.append('machine', item.name))
+        // maschine.map(item => formData.append('machine', item.name))
+        maschine.map(item => formData.append('machine', item))
         console.log('formData', formData)
         // setPartName(data[0]);
         // setPartNumber(data[1]);
