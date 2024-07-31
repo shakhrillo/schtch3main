@@ -164,7 +164,11 @@ async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBase
             with open(file_path, 'wb') as out_file:
                 out_file.write(content)
 
-            file_paths.append(file_path)
+            imgName = file.filename
+
+            if imgName != 'empty.txt':
+                file_paths.append(file_path)
+
 
         data['image'] = ','.join(file_paths) if file_paths else data.get('image', '')
 

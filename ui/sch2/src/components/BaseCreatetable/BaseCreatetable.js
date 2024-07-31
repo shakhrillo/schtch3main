@@ -75,6 +75,13 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
         for (let i = 0; i < files.length; i++) {
             formData.append('files', files[i])
         }
+
+        if (files.length === 0) {
+            const fakeFile = new File([''], 'empty.txt', {
+                type: 'text/plain',
+            });
+            formData.append('files', fakeFile);
+        }
         
         formData.append('date', date)
         formData.append('ma', employeeShortcut.toUpperCase())
