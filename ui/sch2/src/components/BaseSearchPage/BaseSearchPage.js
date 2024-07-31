@@ -32,7 +32,7 @@ function BaseSearchPage({ darkMode, setTableData, setDatLength }) {
           { name: '_Kuehlanlage_', id: 21 },
           { name: '_Kompressor_', id: 22 }
         ];
-        setMachineFilter(_machines);
+        setMachineFilter(_machines.map((item) => item.name));
         // setMachineFilter(data.map((item) => item.machineQrCode));
       });
 
