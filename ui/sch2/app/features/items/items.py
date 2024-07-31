@@ -144,7 +144,7 @@ async def get_items_ma(db: Session = Depends(get_db)):
 
 @item_router.post('/', status_code=status.HTTP_201_CREATED)
 async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBaseSchema.as_form),
-                      files: Optional[List[UploadFile]] = File(None),
+                      files: List[UploadFile] = File(...),
                       db: Session = Depends(get_db)):
     date = datetime.now().strftime('%Y/%m')
     dirs = f'assets/files/{date}'
