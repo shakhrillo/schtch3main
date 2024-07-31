@@ -1,7 +1,7 @@
 
 from datetime import datetime, timedelta
 import os
-from typing import Optional
+from typing import List, Optional
 from fastapi import APIRouter, Depends, status, UploadFile, File
 from sqlalchemy import text
 from sqlalchemy.orm import Session
@@ -144,7 +144,7 @@ async def get_items_ma(db: Session = Depends(get_db)):
 
 @item_router.post('/', status_code=status.HTTP_201_CREATED)
 async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBaseSchema.as_form),
-                      file: Optional[UploadFile] = File(None),
+                      file: Optional[List[UploadFile]] = File(None),
                       db: Session = Depends(get_db)):
     date = datetime.now().strftime('%Y/%m')
     dirs = f'assets/files/{date}'
@@ -156,16 +156,20 @@ async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBase
     data['ma'] = data['ma'].upper()
 
     if file:
+        file_paths = []
         for f in file:
-            content = f.file.read()
+            file_path = f'{dirs}/{f.filename}'
+            content = await f.read()
 
-            with open(f'{dirs}/{f.filename}', 'wb') as out_file:
+            with open(file_path, 'wb') as out_file:
                 out_file.write(content)
 
-            if data.get('image'):
-                data['image'] = data['image'] + f',{dirs}/{f.filename}'
-            else:
-                data['image'] = f'{dirs}/{f.filename}'
+            file_paths.append(file_path)
+
+        if data.get('image'):
+            data['image'] = data['image'] + ',' + ','.join(file_paths)
+        else:
+            data['image'] = ','.join(file_paths)
 
 
     # if file:
