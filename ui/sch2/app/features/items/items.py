@@ -108,7 +108,11 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
         print(i)
         print('00000')
 
-        images = i.image.split(',')
+        if i.image:
+            images = i.image.split(',')
+        else:
+            images = []
+        # images = i.image.split(',')
 
         item = {
             'id': i.id, 'date': i.date, 'ma': i.ma, 'machine': i.machine,
