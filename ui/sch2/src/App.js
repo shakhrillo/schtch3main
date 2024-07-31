@@ -16,7 +16,7 @@ function App() {
   };
   return (
     <div className={`min-vh-100 bg-${isDarkMode ? 'dark' : ''}`} >
-      <div className='container position-relative'>
+      <div className='container-fluid position-relative'>
         <header>
           <div className='pb-2 pt-3 d-flex align-items-center justify-content-between' >
             <div className='d-flex align-items-center' >

@@ -138,6 +138,9 @@ async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBase
     os.makedirs(dirs, exist_ok=True)
     data = payload.dict()
 
+    # make ma uppercase
+    data['ma'] = data['ma'].upper()
+
     if file:
         content = file.file.read()
 
