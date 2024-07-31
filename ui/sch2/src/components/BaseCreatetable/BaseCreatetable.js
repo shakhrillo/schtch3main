@@ -73,7 +73,7 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
         console.log('files', files)
         // files.map(item => formData.append('file', item))
         for (let i = 0; i < files.length; i++) {
-            formData.append('file', files[i])
+            formData.append('files', files[i])
         }
         
         formData.append('date', date)

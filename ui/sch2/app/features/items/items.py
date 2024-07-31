@@ -144,7 +144,7 @@ async def get_items_ma(db: Session = Depends(get_db)):
 
 @item_router.post('/', status_code=status.HTTP_201_CREATED)
 async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBaseSchema.as_form),
-                      file: Optional[List[UploadFile]] = File(None),
+                      files: Optional[List[UploadFile]] = File(None),
                       db: Session = Depends(get_db)):
     date = datetime.now().strftime('%Y/%m')
     dirs = f'assets/files/{date}'
@@ -155,21 +155,18 @@ async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBase
     # make ma uppercase
     data['ma'] = data['ma'].upper()
 
-    if file:
+    if files:
         file_paths = []
-        for f in file:
-            file_path = f'{dirs}/{f.filename}'
-            content = await f.read()
+        for file in files:
+            file_path = os.path.join(dirs, file.filename)
+            content = await file.read()
 
             with open(file_path, 'wb') as out_file:
                 out_file.write(content)
 
             file_paths.append(file_path)
 
-        if data.get('image'):
-            data['image'] = data['image'] + ',' + ','.join(file_paths)
-        else:
-            data['image'] = ','.join(file_paths)
+        data['image'] = ','.join(file_paths) if file_paths else data.get('image', '')
 
 
     # if file:
