@@ -3,7 +3,7 @@ import moment from 'moment';
 import { Form, Alert, Table, Spinner, Modal } from 'react-bootstrap';
 import BaseFileUpload from '../BaseFileUpload/BaseFileUpload';
 import BaseMultiSelect from '../BaseMultiSelect/BaseMultiSelect';
-import { machine, statusData } from '../../data/users';
+import { statusData } from '../../data/users';
 import { create, fetchGet } from '../../api/index'
 import { timeFormat } from '../../utils/index'
 import { useForm } from 'react-hook-form';
@@ -29,6 +29,17 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
     const [partNumber, setPartNumber] = useState('')
     const [partName, setPartName] = useState('')
     const [show, setShow] = useState(false);
+
+    const [machine, setMachineFilter] = useState([]);
+
+    useEffect(() => {
+        fetch('http://192.168.100.23:7878/api/machines')
+          .then((res) => res.json())
+          .then((data) => {
+            setMachineFilter(data.map((item) => item.machineQrCode));
+          });
+    
+      }, []);
 
     const { register, formState: { errors }, handleSubmit, reset } = useForm({
         mode: 'onBlur',

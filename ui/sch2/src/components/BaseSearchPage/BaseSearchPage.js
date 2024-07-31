@@ -9,7 +9,7 @@ import './BaseSearchPage.css';
 
 // const shiftFilter = ['F1', 'S2', 'N3']
 const statusFilter = statusData;
-const machineFilter = machine.map((item, i) => item.name);
+// const machineFilter = machine.map((item, i) => item.name);
 
 function BaseSearchPage({ darkMode, setTableData, setDatLength }) {
   const [isVisible, setIsVisible] = useState(true);
@@ -18,6 +18,17 @@ function BaseSearchPage({ darkMode, setTableData, setDatLength }) {
   const [fromDate, setFromDate] = useState('');
   const [toDate, setToDate] = useState('');
   const [toArticle, setToArticle] = useState('');
+
+  const [machineFilter, setMachineFilter] = useState([]);
+
+  useEffect(() => {
+    fetch('http://192.168.100.23:7878/api/machines')
+      .then((res) => res.json())
+      .then((data) => {
+        setMachineFilter(data.map((item) => item.machineQrCode));
+      });
+
+  }, []);
 
   // partnr
   // const [timeFormatSelect, setTimeFormatSelect] = useState('')
