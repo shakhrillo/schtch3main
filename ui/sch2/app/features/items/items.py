@@ -108,9 +108,11 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
         print(i)
         print('00000')
 
+        images = i.image.split(',')
+
         item = {
             'id': i.id, 'date': i.date, 'ma': i.ma, 'machine': i.machine,
-            'notes': notes, 'image': i.image, 'status': i.status,
+            'notes': notes, 'image': images, 'status': i.status,
             'partnr': i.partnr, 'partname': i.partname,
         }
         data.append(item)
@@ -159,9 +161,11 @@ async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBase
         # data['image'] = [f'{dirs}/{file.filename}']
 
         if data.get('image'):
-            data['image'].append(f'{dirs}/{file.filename}')
+            # add with comma
+            data['image'] = data['image'] + f',{dirs}/{file.filename}'
+            # data['image'].append(f'{dirs}/{file.filename}')
         else:
-            data['image'] = [f'{dirs}/{file.filename}']
+            data['image'] = f'{dirs}/{file.filename}'
 
     notes = data.pop('notes')
 
