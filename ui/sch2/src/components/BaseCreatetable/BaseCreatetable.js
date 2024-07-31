@@ -70,7 +70,11 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
         const formData = new FormData()
 
         // formData.append('file', files)
-        files.map(item => formData.append('file', item))
+        console.log('files', files)
+        // files.map(item => formData.append('file', item))
+        for (let i = 0; i < files.length; i++) {
+            formData.append('file', files[i])
+        }
         
         formData.append('date', date)
         formData.append('ma', employeeShortcut.toUpperCase())
