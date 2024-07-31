@@ -121,11 +121,11 @@ async def get_items(params: GetItemsParams = Depends(GetItemsParams),
 
 @item_router.get('/ma', status_code=status.HTTP_200_OK)
 async def get_items_ma(db: Session = Depends(get_db)):
-    ma = db.query(models.Items.ma).all()
+    # ma = db.query(models.Items.ma).all()
 
     # ma = [i['ma'] for i in ma]
 
-    return {'status': status.HTTP_200_OK, 'ma': ma}
+    return {'status': status.HTTP_200_OK, 'ma': []}
 
 
 @item_router.post('/', status_code=status.HTTP_201_CREATED)
