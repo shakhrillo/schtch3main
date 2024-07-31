@@ -25,7 +25,15 @@ function BaseSearchPage({ darkMode, setTableData, setDatLength }) {
     fetch('http://192.168.100.23:7878/api/machines')
       .then((res) => res.json())
       .then((data) => {
-        setMachineFilter(data.map((item) => item.machineQrCode));
+        const _machines = [
+          { name: '_Keine_', id: 0 }, ...data.map((item) => ({ name: item.machineQrCode, id: item.machineQrCode })),
+          { name: '_Peripherie_', id: 19 },
+          { name: '_Trocknung_', id: 20 },
+          { name: '_Kuehlanlage_', id: 21 },
+          { name: '_Kompressor_', id: 22 }
+        ];
+        setMachineFilter(_machines);
+        // setMachineFilter(data.map((item) => item.machineQrCode));
       });
 
   }, []);
