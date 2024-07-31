@@ -2,4 +2,6 @@ assets
 ./assets
 ./assets/*
 build
+./build
+./build/*
 node_modules
