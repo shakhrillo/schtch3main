@@ -155,7 +155,13 @@ async def create_item(payload: schemas.ItemBaseSchema = Depends(schemas.ItemBase
         with open(f'{dirs}/{file.filename}', 'wb') as out_file:
             out_file.write(content)
 
-        data['image'] = f'{dirs}/{file.filename}'
+        # data['image'] = f'{dirs}/{file.filename}'
+        # data['image'] = [f'{dirs}/{file.filename}']
+
+        if data.get('image'):
+            data['image'].append(f'{dirs}/{file.filename}')
+        else:
+            data['image'] = [f'{dirs}/{file.filename}']
 
     notes = data.pop('notes')
 

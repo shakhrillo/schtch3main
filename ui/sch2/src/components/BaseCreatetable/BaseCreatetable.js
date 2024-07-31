@@ -23,7 +23,7 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
     const [maschine, setMaschine] = useState([])
     const [status, setStatus] = useState('')
     const [note, setNote] = useState([])
-    const [files, setFiles] = useState('')
+    const [files, setFiles] = useState([])
     const [valueFile, setValueFile] = useState('')
     const [Artikelnr, setArtikelnr] = useState('')
     const [partNumber, setPartNumber] = useState('')
@@ -59,7 +59,7 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
 
     const handleUpload = (e) => {
         // setFiles(Array.from(e))
-        setFiles(e.target.files[0])
+        setFiles(e.target.files)
         setValueFile(e.target.value)
     }
     const handleClose = () => setShow(false);
@@ -69,7 +69,9 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
         const FormData = require('form-data');
         const formData = new FormData()
 
-        formData.append('file', files)
+        // formData.append('file', files)
+        files.map(item => formData.append('file', item))
+        
         formData.append('date', date)
         formData.append('ma', employeeShortcut.toUpperCase())
         formData.append('operation_order_number', Artikelnr)
