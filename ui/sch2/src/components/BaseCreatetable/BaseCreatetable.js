@@ -56,7 +56,7 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
 
         formData.append('file', files)
         formData.append('date', date)
-        formData.append('ma', employeeShortcut)
+        formData.append('ma', employeeShortcut.toUpperCase())
         formData.append('operation_order_number', Artikelnr)
         formData.append('notes', note)
         formData.append('partnr', partNumber)
