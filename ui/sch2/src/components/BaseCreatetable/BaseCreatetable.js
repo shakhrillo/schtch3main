@@ -36,7 +36,11 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
         fetch('http://192.168.100.23:7878/api/machines')
           .then((res) => res.json())
           .then((data) => {
-            setMachineFilter(data.map((item) => item.machineQrCode));
+            setMachineFilter(data.map((item) => ({
+                name: item.machineQrCode,
+                id: item.id
+            })
+            ));
           });
     
       }, []);
@@ -73,8 +77,7 @@ const BaseFormCreate = ({ darkMode, page, setTableData, setKey }) => {
         formData.append('partnr', partNumber)
         formData.append('partname', partName)
         formData.append('status', status.id || 'info')
-        // maschine.map(item => formData.append('machine', item.name))
-        maschine.map(item => formData.append('machine', item))
+        maschine.map(item => formData.append('machine', item.name))
         console.log('formData', formData)
         // setPartName(data[0]);
         // setPartNumber(data[1]);
