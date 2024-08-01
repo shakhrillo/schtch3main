@@ -500,7 +500,7 @@ const BaseTable = ({
             {images.map((img, i) => {
               return (
                 <a key={img + i} href={url + img} target="_blank" rel="noreferrer" style={{width: '100%', marginBottom: '4px'}}>
-                  Open image
+                  Bild öffnen...
                 </a>
                 )
             })}
